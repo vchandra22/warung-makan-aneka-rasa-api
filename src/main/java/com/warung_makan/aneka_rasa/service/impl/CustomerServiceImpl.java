@@ -8,6 +8,8 @@ import com.warung_makan.aneka_rasa.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
@@ -48,6 +50,19 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setEmail(customerRequest.getEmail());
 
         return toCustomerResponse(customer);
+    }
+
+    @Override
+    public List<CustomerResponse> getAllCustomers() {
+        return customerRepository.findAll()
+                .stream()
+                .map(this::toCustomerResponse)
+                .toList();
+    }
+
+    @Override
+    public void deleteCustomer(String id) {
+        customerRepository.deleteById(id);
     }
 
     private CustomerResponse toCustomerResponse(Customer customer) {

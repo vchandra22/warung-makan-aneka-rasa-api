@@ -16,5 +16,8 @@ public class Constant {
     public static final String SUCCESS_CREATE_CUSTOMER = "Successfully create customer";
     public static final String SUCCESS_GET_CUSTOMER = "Successfully get customer";
     public static final String SUCCESS_UPDATE_CUSTOMER = "Successfully update customer";
+    public static final String SUCCESS_DELETE_CUSTOMER = "Successfully delete customer";
+    public static final String SUCCESS_GET_ALL_CUSTOMER = "Successfully get all customer";
+
 
 }
