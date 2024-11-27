@@ -16,5 +16,6 @@ public enum MenuCategory {
                 return menuCategory;
             }
         }
+        return null;
     }
 }

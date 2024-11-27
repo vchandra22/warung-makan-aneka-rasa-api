@@ -24,8 +24,14 @@ public class Menu {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "price", nullable = false, columnDefinition = "bigint check (price < 0)")
+    @Column(name = "price", nullable = false)
     private Long price;
+
+    @Column(nullable = false)
+    private Integer stock;
+
+    @Column(name = "is_available", nullable = false)
+    private boolean isAvailable;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
