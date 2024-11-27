@@ -2,11 +2,18 @@ package com.warung_makan.aneka_rasa.service.impl;
 
 import com.warung_makan.aneka_rasa.constant.MenuCategory;
 import com.warung_makan.aneka_rasa.dto.request.MenuRequest;
+import com.warung_makan.aneka_rasa.dto.request.SearchMenuRequest;
 import com.warung_makan.aneka_rasa.dto.response.MenuResponse;
 import com.warung_makan.aneka_rasa.entity.Menu;
 import com.warung_makan.aneka_rasa.repository.MenuRepository;
 import com.warung_makan.aneka_rasa.service.MenuService;
+import com.warung_makan.aneka_rasa.specification.MenuSpecification;
+import com.warung_makan.aneka_rasa.util.SortUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -57,6 +64,20 @@ public class MenuServiceImpl implements MenuService {
     public Menu getOne(String id) {
         return menuRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
+    }
+
+    @Override
+    public Page<MenuResponse> getAllMenu(SearchMenuRequest searchMenuRequest) {
+        Pageable menuPageable = PageRequest.of(
+                (searchMenuRequest.getPage() - 1),
+                searchMenuRequest.getSize(),
+                SortUtil.parseSortFromQueryParam(searchMenuRequest.getSort())
+        );
+
+        Specification<Menu> menuSpecification = MenuSpecification.getSpecification(searchMenuRequest);
+        Page<Menu> menuPage = menuRepository.findAll(menuSpecification, menuPageable);
+
+        return menuPage.map(this::toMenuResponse);
     }
 
     @Override
