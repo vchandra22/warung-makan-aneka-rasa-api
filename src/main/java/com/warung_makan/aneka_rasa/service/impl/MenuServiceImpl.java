@@ -59,6 +59,13 @@ public class MenuServiceImpl implements MenuService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
     }
 
+    @Override
+    public void deleteMenu(String id) {
+        Menu menu = getOne(id);
+
+        menuRepository.delete(menu);
+    }
+
     private MenuResponse toMenuResponse(Menu menu) {
         MenuResponse menuResponse = new MenuResponse();
 

@@ -8,5 +8,6 @@ public class Constant {
     public static final String SUCCESS_CREATE_MENU = "Successfully created menu";
     public static final String SUCCESS_GET_MENU = "Successfully get menu";
     public static final String SUCCESS_UPDATE_MENU = "Successfully update menu";
+    public static final String SUCCESS_DELETE_MENU = "Successfully delete menu";
 
 }

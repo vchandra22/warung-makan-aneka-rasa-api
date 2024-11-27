@@ -9,5 +9,5 @@ public interface MenuService {
     MenuResponse getMenuById(String id);
     MenuResponse updateMenu(String id, MenuRequest menuRequest);
     Menu getOne(String id);
-
+    void deleteMenu(String id);
 }
