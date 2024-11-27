@@ -4,18 +4,17 @@ import com.warung_makan.aneka_rasa.constant.Constant;
 import com.warung_makan.aneka_rasa.constant.MenuCategory;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = Constant.MENU_TABLE)
-public class Menu {
+public class Menu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
