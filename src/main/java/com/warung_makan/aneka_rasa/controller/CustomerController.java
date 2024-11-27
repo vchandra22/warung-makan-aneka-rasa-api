@@ -8,10 +8,7 @@ import com.warung_makan.aneka_rasa.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,9 +17,23 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<?> createCustomer(@RequestBody CustomerRequest customerRequest) {
-        CustomerResponse customerResponse = customerService.createCustomer(customerRequest);
+    public ResponseEntity<?> createCustomer(@RequestBody CustomerRequest request) {
+        CustomerResponse customerResponse = customerService.createCustomer(request);
 
         return ResponseUtil.buildResponse(HttpStatus.CREATED, Constant.SUCCESS_CREATE_CUSTOMER, customerResponse);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getCustomerById(@PathVariable String id) {
+        CustomerResponse customerResponse = customerService.getCustomerById(id);
+
+        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_CUSTOMER, customerResponse);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<?> updateCustomer(@PathVariable String id, @RequestBody CustomerRequest request) {
+        CustomerResponse customerResponse = customerService.updateCustomer(id, request);
+
+        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_UPDATE_CUSTOMER, customerResponse);
     }
 }
