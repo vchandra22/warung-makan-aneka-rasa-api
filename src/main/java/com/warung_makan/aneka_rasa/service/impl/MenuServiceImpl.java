@@ -7,7 +7,10 @@ import com.warung_makan.aneka_rasa.entity.Menu;
 import com.warung_makan.aneka_rasa.repository.MenuRepository;
 import com.warung_makan.aneka_rasa.service.MenuService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,19 @@ public class MenuServiceImpl implements MenuService {
                 .build();
         menuRepository.saveAndFlush(menu);
         return toMenuResponse(menu);
+    }
+
+    @Override
+    public MenuResponse getMenuById(String id) {
+        Menu menu = getOne(id);
+
+        return toMenuResponse(menu);
+    }
+
+    @Override
+    public Menu getOne(String id) {
+        return menuRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
     }
 
     private MenuResponse toMenuResponse(Menu menu) {

@@ -19,7 +19,7 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private String id;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;

@@ -8,10 +8,7 @@ import com.warung_makan.aneka_rasa.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(Constant.MENU_API)
 @RestController
@@ -24,5 +21,12 @@ public class MenuController {
         MenuResponse createdMenu = menuService.createMenu(request);
 
         return ResponseUtil.buildResponse(HttpStatus.CREATED, Constant.SUCCESS_CREATE_MENU, createdMenu);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getMenu(@PathVariable String id) {
+        MenuResponse singleMenu = menuService.getMenuById(id);
+
+        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_MENU, singleMenu);
     }
 }
