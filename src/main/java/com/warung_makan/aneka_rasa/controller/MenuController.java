@@ -29,4 +29,12 @@ public class MenuController {
 
         return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_GET_MENU, singleMenu);
     }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<?> updateMenu(@PathVariable String id, @RequestBody MenuRequest menuRequest) {
+        MenuResponse updateMenu = menuService.updateMenu(id, menuRequest);
+
+        return ResponseUtil.buildResponse(HttpStatus.OK, Constant.SUCCESS_UPDATE_MENU, updateMenu);
+    }
+
 }

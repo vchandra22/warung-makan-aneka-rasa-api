@@ -8,7 +8,6 @@ import com.warung_makan.aneka_rasa.repository.MenuRepository;
 import com.warung_makan.aneka_rasa.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,7 +25,9 @@ public class MenuServiceImpl implements MenuService {
                 .isAvailable(true)
                 .stock(menuRequest.getStock())
                 .build();
+
         menuRepository.saveAndFlush(menu);
+
         return toMenuResponse(menu);
     }
 
@@ -38,6 +39,21 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public MenuResponse updateMenu(String id, MenuRequest menuRequest) {
+        Menu currentMenu = getOne(id);
+
+        currentMenu.setId(id);
+        currentMenu.setName(menuRequest.getName());
+        currentMenu.setPrice(menuRequest.getPrice());
+        currentMenu.setStock(menuRequest.getStock());
+        currentMenu.setCategory(MenuCategory.fromValue(menuRequest.getCategory()));
+
+        menuRepository.save(currentMenu);
+
+        return toMenuResponse(currentMenu);
+    }
+
+    @Override
     public Menu getOne(String id) {
         return menuRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
@@ -45,6 +61,7 @@ public class MenuServiceImpl implements MenuService {
 
     private MenuResponse toMenuResponse(Menu menu) {
         MenuResponse menuResponse = new MenuResponse();
+
         menuResponse.setId(String.valueOf(menu.getId()));
         menuResponse.setName(menu.getName());
         menuResponse.setPrice(menu.getPrice());

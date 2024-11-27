@@ -7,5 +7,7 @@ import com.warung_makan.aneka_rasa.entity.Menu;
 public interface MenuService {
     MenuResponse createMenu(MenuRequest menuRequest);
     MenuResponse getMenuById(String id);
+    MenuResponse updateMenu(String id, MenuRequest menuRequest);
     Menu getOne(String id);
+
 }
