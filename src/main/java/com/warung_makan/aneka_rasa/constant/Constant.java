@@ -2,11 +2,13 @@ package com.warung_makan.aneka_rasa.constant;
 
 public class Constant {
     public static final String MENU_API = "api/v1/menus";
+    public static final String AUTH_API = "api/v1/auth";
     public static final String CUSTOMER_API = "api/v1/customers";
 
     public static final String MENU_TABLE = "m_menu";
     public static final String CUSTOMER_TABLE = "m_customer";
     public static final String USER_TABLE = "m_user";
+    public static final String ROLE_TABLE = "m_role";
 
     public static final String SUCCESS_CREATE_MENU = "Successfully created menu";
     public static final String SUCCESS_GET_MENU = "Successfully get menu";
@@ -20,5 +22,6 @@ public class Constant {
     public static final String SUCCESS_DELETE_CUSTOMER = "Successfully delete customer";
     public static final String SUCCESS_GET_ALL_CUSTOMER = "Successfully get all customer";
 
+    public static final String ERROR_CREATING_JWT = "Error when creating JWT";
 
 }
